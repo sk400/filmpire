@@ -36,7 +36,7 @@ const MovieDetailPage = () => {
   };
 
   const topCasts = getTopCasts();
-  console.log(topCasts);
+  // console.log(topCasts);
 
   return (
     <Box sx={{ py: 4 }}>
@@ -140,14 +140,14 @@ const MovieDetailPage = () => {
               {topCasts?.map((cast) => (
                 <Grid
                   item
-                  key={cast?.cast_id}
+                  key={cast?.id}
                   xs={4}
                   sm={3}
                   lg={2}
                   justifyItems="center"
                 >
                   <Link
-                    to={`/actor/${cast?.cast_id}`}
+                    to={`/actor/${cast?.id}`}
                     style={{
                       textDecoration: "none",
                       color: "black",
