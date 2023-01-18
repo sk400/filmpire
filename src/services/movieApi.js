@@ -5,6 +5,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // genres = https://api.themoviedb.org/3/discover/movie?api_key=0fe1d442244aa8057a8d1339061524f0&with_genres=28
 // categories = https://api.themoviedb.org/3/movie/popular?api_key=0fe1d442244aa8057a8d1339061524f0
 // search = https://api.themoviedb.org/3/search/movie/?api_key=0fe1d442244aa8057a8d1339061524f0&query=Thor
+//  movies by actor = https://api.themoviedb.org/3/discover/movie?api_key=0fe1d442244aa8057a8d1339061524f0&with_cast=4
+//  actor details =https://api.themoviedb.org/3/person/4?api_key=0fe1d442244aa8057a8d1339061524f0
+//  suggested Movies = https://api.themoviedb.org/3/movie/550/recommendations?api_key=0fe1d442244aa8057a8d1339061524f0
 
 const tmdb_key = process.env.REACT_APP_TMDB_API_KEY;
 
@@ -37,7 +40,40 @@ export const movieApi = createApi({
         return `/movie/popular?api_key=${tmdb_key}`;
       },
     }),
+
+    // movie details by movieId
+
+    getMovieDetails: builder.query({
+      query: (movieId) =>
+        `/movie/${movieId}?api_key=${tmdb_key}&append_to_response=videos,credits`,
+    }),
+
+    // actor details
+
+    getActorDetails: builder.query({
+      query: (actorId) => `/person/${actorId}?api_key=${tmdb_key}`,
+    }),
+
+    // movies of an actor
+
+    getMoviesOfAnActor: builder.query({
+      query: (actorId) =>
+        `/discover/movie?api_key=${tmdb_key}&with_cast=${actorId}`,
+    }),
+
+    // get recommendations
+
+    getRecommendations: builder.query({
+      query: (movieId) =>
+        `/movie/${movieId}/recommendations?api_key=${tmdb_key}`,
+    }),
   }),
 });
 
-export const { useGetMoviesQuery } = movieApi;
+export const {
+  useGetMoviesQuery,
+  useGetMovieDetailsQuery,
+  useGetActorDetailsQuery,
+  useGetMoviesOfAnActorQuery,
+  useGetRecommendationsQuery,
+} = movieApi;

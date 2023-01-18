@@ -16,12 +16,9 @@ import Typography from "@mui/material/Typography";
 import { sidebarCategories, sidebarGenres } from "../../utils/data";
 import { SearchBar } from "../molecules";
 import { Link } from "react-router-dom";
-import {
-  useGetAllMoviesByCategoryQuery,
-  useGetAllMoviesByGenreQuery,
-} from "../../services/movieApi";
+
 import { useDispatch } from "react-redux";
-import { setMovies } from "../../features/movies/moviesSlice";
+
 import { selectGenreOrCategory } from "../../features/currentCategorySlice";
 
 const drawerWidth = 240;
