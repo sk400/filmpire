@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { Loader } from "../components/molecules";
+import { Loader, Pagination } from "../components/molecules";
 import Movies from "../components/organisms/Movies";
 import { selectGenreOrCategory } from "../features/currentCategorySlice";
 import {
@@ -33,6 +33,8 @@ const MovieDetailPage = () => {
   if (isFetching) return <Loader />;
 
   const recommendedMovies = recommendations?.results;
+  const totalPages = recommendations?.total_pages;
+  // console.log(recommendations);
 
   const getTopCasts = () => {
     const topCasts = data?.credits?.cast?.slice(0, 6);
@@ -194,6 +196,11 @@ const MovieDetailPage = () => {
           You might also like
         </Typography>
         <Movies movies={recommendedMovies} />
+        <Pagination
+          setPage={setPage}
+          currentPage={page}
+          totalPages={totalPages}
+        />
       </Stack>
     </Box>
   );

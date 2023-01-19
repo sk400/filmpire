@@ -15,7 +15,7 @@ const Pagination = ({ setPage, currentPage, totalPages }) => {
     }
   };
 
-  if (totalPages?.length === 0) return null;
+  if (totalPages === 0) return null;
 
   return (
     <Box
