@@ -5,7 +5,7 @@ import { MovieCard } from "../molecules";
 
 const Movies = ({ movies }) => {
   return (
-    <Box>
+    <Box mt={3}>
       <Grid container spacing={2}>
         {movies?.map((movie, index) => (
           <Grid item xs={12} sm={6} lg={3} key={index}>

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Loader } from "../components/molecules";
+import { Loader, Pagination } from "../components/molecules";
 import { Banner } from "../components/organisms";
 import Movies from "../components/organisms/Movies";
 
@@ -9,16 +9,22 @@ import { useGetMoviesQuery } from "../services/movieApi";
 
 const HomePage = () => {
   const { genreOrCategory, searchQuery } = useSelector(
-    (state) => state?.currentGenreOrCategory
+    (state) => state.currentGenreOrCategory
   );
-  const { data, isFetching, error } = useGetMoviesQuery(
+  const [page, setPage] = useState(1);
+
+  const { data, isFetching, error } = useGetMoviesQuery({
     genreOrCategory,
-    searchQuery
-  );
+    searchQuery,
+    page,
+  });
 
   if (isFetching) return <Loader />;
 
   const movies = data?.results;
+  const totalPages = data?.total_pages;
+
+  // console.log(data);
 
   if (error) return "An error occured";
 
@@ -34,6 +40,11 @@ const HomePage = () => {
     <Box>
       <Banner featuredMovie={featuredMovie} />
       <Movies movies={movies} />
+      <Pagination
+        setPage={setPage}
+        currentPage={page}
+        totalPages={totalPages}
+      />
     </Box>
   );
 };

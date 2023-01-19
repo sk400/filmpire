@@ -16,28 +16,28 @@ export const movieApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://api.themoviedb.org/3" }),
   endpoints: (builder) => ({
     getMovies: builder.query({
-      query: (genreOrCategory, searchQuery) => {
+      query: ({ genreOrCategory, searchQuery, page }) => {
         // get movies by category
 
         if (genreOrCategory && typeof genreOrCategory === "string") {
-          return `/movie/${genreOrCategory}?api_key=${tmdb_key}`;
+          return `/movie/${genreOrCategory}?page=${page}&api_key=${tmdb_key}`;
         }
 
         // get movies by genre
 
         if (genreOrCategory && typeof genreOrCategory === "number") {
-          return `/discover/movie?api_key=${tmdb_key}&with_genres=${genreOrCategory}`;
+          return `/discover/movie?page=${page}&api_key=${tmdb_key}&with_genres=${genreOrCategory}`;
         }
 
         // get movies by search
 
         if (searchQuery) {
-          return `/search/movie?api_key=${tmdb_key}&query=${searchQuery}`;
+          return `/search/movie?page=${page}&api_key=${tmdb_key}&query=${searchQuery}`;
         }
 
         // get popular movies by default
 
-        return `/movie/popular?api_key=${tmdb_key}`;
+        return `/movie/popular?page=${page}&api_key=${tmdb_key}`;
       },
     }),
 
@@ -64,8 +64,8 @@ export const movieApi = createApi({
     // get recommendations
 
     getRecommendations: builder.query({
-      query: (movieId) =>
-        `/movie/${movieId}/recommendations?api_key=${tmdb_key}`,
+      query: ({ movieId, page }) =>
+        `/movie/${movieId}/recommendations?page=${page}&api_key=${tmdb_key}`,
     }),
   }),
 });

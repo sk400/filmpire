@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Loader } from "../components/molecules";
@@ -22,9 +22,13 @@ import { sidebarGenres } from "../utils/data";
 const MovieDetailPage = () => {
   const { movieId } = useParams();
   const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
 
   const { data, isFetching, error } = useGetMovieDetailsQuery(movieId);
-  const { data: recommendations } = useGetRecommendationsQuery(movieId);
+  const { data: recommendations } = useGetRecommendationsQuery({
+    movieId,
+    page,
+  });
 
   if (isFetching) return <Loader />;
 
@@ -50,6 +54,8 @@ const MovieDetailPage = () => {
               sx={{
                 borderRadius: "16px",
                 width: { xs: "240px", sm: "250px", lg: "250px" },
+                // boxShadow: `rgb(0 0 0 / 80%) 0px 40px 58px -16px`,
+                boxShadow: "-1px 5px 40px #413F42",
               }}
             />
           </Box>

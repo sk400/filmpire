@@ -1,3 +1,4 @@
+import { Scale } from "@mui/icons-material";
 import {
   Box,
   Card,
@@ -30,6 +31,10 @@ const MovieCard = ({ movie }) => {
           sx={{
             borderRadius: "16px",
             boxShadow: "none",
+            transition: "all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s",
+            "&:hover": {
+              transform: `Scale(1.05)`,
+            },
           }}
         >
           <CardMedia
